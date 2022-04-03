@@ -1,0 +1,131 @@
+.flexContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.flexContainerBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+p {
+    font-size: 45px;
+}
+
+.wrapper {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: lightcyan;
+    border: 3px solid cadetblue;
+    box-shadow: 0 5px 5px 3px turquoise;
+    border-radius: 10px;
+}
+
+.wrapper2 {
+    margin-right: 20px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: lightcyan;
+    border: 3px solid cadetblue;
+    box-shadow: 0 5px 5px 3px turquoise;
+    border-radius: 10px;
+}
+
+.maxCount {
+    color: red;
+}
+
+.class {
+    display: block;
+}
+
+.notMaxCount {
+    color:  midnightblue;
+}
+
+.addButton {
+    background-color: #4CAF50;
+    color: white;
+    margin: 5px 5px 5px 5px;
+    border-radius: 4px;
+}
+
+.addButtonDisabled {
+    margin: 5px 5px 5px 5px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.addButton:hover {
+    margin: 5px 5px 5px 5px;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    -webkit-transition-duration: 0.4s;
+}
+
+.resetButton {
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+}
+
+.resetButtonDisabled {
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.resetButton:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #f44336;
+    -webkit-transition-duration: 0.4s;
+}
+
+.changeVersionButton {
+    margin-top: 20px;
+    background: lightcyan;
+    border: 3px solid cadetblue;
+    box-shadow: 0 2px 2px 1px turquoise;
+    border-radius: 10px;
+    width: 125px;
+    color: midnightblue;
+}
+
+.classDiv {
+    margin-top: 30px;
+}
+
+.errorDisplay {
+    background-color: red;
+    text-align: center;
+    font-size: large;
+    margin: auto;
+    border: 1px solid black;
+    color: white;
+    border-radius: 4px;
+}
+
+.display {
+    width: 200px;
+    height: 155px;
+    text-align: center;
+}
+
+.errorSpan {
+    background-color: red;
+}
