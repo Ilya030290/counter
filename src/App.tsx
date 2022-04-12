@@ -1,64 +1,93 @@
-import React, {useEffect, useState} from 'react';
-import  './App.css'
+import React from 'react';
+import './App.css'
 import {Counter} from "./Counter/Counter";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "./redux/store";
+import {
+    CounterStateType,
+    EditModeType,
+    changeCurrentCounterValueAC,
+    incCounterValueAC,
+    resetCounterValueAC,
+    setErrorAC,
+    setMaxValueAC,
+    setStartValueAC,
+    changeEditModeAC,
+    changeTurnOnAC
+} from "./redux/counter-reducer";
 
 
 export const App = () => {
 
-    const incrValue = 1;
+    let {
+        startValue,
+        maxValue,
+        currentValue,
+        error,
+        editMode,
+        turnOn
+    } = useSelector<AppStateType, CounterStateType>(state => state.counter);
 
-    //Values, error, counterState and functions to set start and max values
+    const dispatch = useDispatch();
 
-    const [value, setValue] = useState({
-        startValue: Number(localStorage.getItem('startValue')),
-        maxValue: Number(localStorage.getItem('maxValue'))
-    });
-
-    const [counterState, setCounterState] = useState<number>(Number(localStorage.getItem('startValue')));
-
-    const [error, setError] = useState<boolean>(false);
-
-    useEffect(() => {
-        if ((value.startValue >= value.maxValue) || (value.startValue < 0) || (value.maxValue < 0)) {
-            setError(true);
-        } else {
-            setError(false);
-        }
-    }, [value]);
 
     const setStartValue = (newStartValue: number) => {
-        setValue({...value, startValue: newStartValue});
+        dispatch(setStartValueAC(newStartValue));
+        if(newStartValue < 0 || newStartValue >= maxValue) {
+            return dispatch(setErrorAC(true));
+        }
+        if (maxValue >= 0) {
+            return dispatch(setErrorAC(false));
+        }
+
     }
 
     const setMaxValue = (newMaxValue: number) => {
-        setValue({...value, maxValue: newMaxValue});
-    }
-
-    const setButton = () => {
-        localStorage.setItem("startValue", value.startValue.toString())
-        localStorage.setItem("MaxValue", value.maxValue.toString())
-        setCounterState(Number(localStorage.getItem("startValue")))
-    }
-
-    const resetCounterState = () => {
-        setCounterState(value.startValue);
-    }
-
-    const sumOfValues = () => {
-        if (counterState < value.maxValue) {
-            setCounterState(counterState + incrValue);
+        dispatch(setMaxValueAC(newMaxValue));
+        if(newMaxValue < 0 || newMaxValue <= startValue) {
+            return dispatch(setErrorAC(true));
+        }
+        if(newMaxValue >= 0) {
+            return dispatch(setErrorAC(false));
         }
     }
+
+    const setValue = () => {
+        dispatch(changeCurrentCounterValueAC(startValue));
+    }
+
+    const resetCurrentValue = () => {
+        dispatch(resetCounterValueAC(startValue));
+    }
+
+    const incrCurrentValue = () => {
+        if (currentValue < maxValue) {
+            dispatch(incCounterValueAC());
+        }
+    }
+
+    const changeEditMode = (editMode: EditModeType) => {
+        dispatch(changeEditModeAC(editMode));
+    }
+
+    const changeTurnOn = (turnOn: boolean) => {
+        dispatch(changeTurnOnAC(turnOn));
+    }
+
     return (
-        <Counter startValue={value.startValue}
-                 maxValue={value.maxValue}
-                 counterState={counterState}
+        <Counter startValue={startValue}
+                 maxValue={maxValue}
+                 currentValue={currentValue}
                  error={error}
-                 setButton={setButton}
+                 setValue={setValue}
                  setStartValue={setStartValue}
                  setMaxValue={setMaxValue}
-                 resetCounterState={resetCounterState}
-                 sumOfValues={sumOfValues}
+                 resetCurrentValue={resetCurrentValue}
+                 incrCurrentValue={incrCurrentValue}
+                 editMode={editMode}
+                 changeEditMode={changeEditMode}
+                 turnOn={turnOn}
+                 changeTurnOn={changeTurnOn}
         />
     );
 };

@@ -5,14 +5,14 @@ type CounterButtonPropsType = {
     callback: () => void
     disabled?: boolean
     className?:string
-    turnOnnSetting?:(on:boolean) => void
-    turnedOn?:boolean
+    changeTurnOn?: (turnOn: boolean) => void
+    turnOn?: boolean
 }
 
 export const CounterButton = (props: CounterButtonPropsType) => {
 
     const onClickHandler = () => {
-        props.turnOnnSetting && props.turnOnnSetting(!props.turnedOn);
+        props.changeTurnOn && props.changeTurnOn(!props.turnOn);
         props.callback();
     }
 
